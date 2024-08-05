@@ -1,9 +1,9 @@
-
+import 'package:dodiddone/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dodiddone/theme/theme.dart'; // Import your theme class
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -12,7 +12,16 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   bool _isLogin = true;
+  final _passWordController = TextEditingController();
+  final _repeatepassWordController = TextEditingController();
 
+  @override
+  void dispose() {
+    _passWordController.dispose();
+    _repeatepassWordController.dispose();
+    super.dispose();
+  }
+  
   @override
   Widget build(BuildContext context) {
     final primaryColor = DoDidDoneTheme.lightTheme.colorScheme.primary;
@@ -65,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
+                  controller: _passWordController,
                   obscureText: true,
                   decoration: const InputDecoration(
                     hintText: 'Password',
@@ -81,12 +91,12 @@ class _LoginPageState extends State<LoginPage> {
                     }
                     return null;
                   },
-                  // Assign a key to the password field
-                  key: const Key('passwordField'),
+                  
                 ),
                 const SizedBox(height: 20),
                 // Add the new TextFormField for repeating the password
                 TextFormField(
+                  controller: _repeatepassWordController,
                   obscureText: true,
                   decoration: const InputDecoration(
                     hintText: 'Repeat Password',
@@ -102,7 +112,8 @@ class _LoginPageState extends State<LoginPage> {
                       return 'Please repeat your password';
                     }
                     // Access the password field's value using the key
-                    if (value != _formKey.currentState!.value['passwordField']) {
+                    
+                    if (_repeatepassWordController.text != _passWordController.text) {
                       return 'Passwords do not match';
                     }
                     return null;
@@ -112,31 +123,30 @@ class _LoginPageState extends State<LoginPage> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // Save the form values
-                      _formKey.currentState!.save();
-                      // Now you can access the values using _formKey.currentState!.value
-                      // TODO: Handle login/registration logic
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MainPage())
+                    );// TODO: Handle login/registration logic
                     }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: _isLogin ? secondaryColor : primaryColor,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 50, vertical: 15),
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: _isLogin ? Colors.white : Colors.black, // Change text color based on _isLogin
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
                   child: Text(
-                    _isLogin ? 'Login' : 'Register',
+                    _isLogin
+                        ? 'Login'
+                        : 'Register',
                     style: TextStyle(
-                      fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: _isLogin ? Colors.white : Colors.black, // Change text color based on _isLogin
+                      color: _isLogin ? Colors.white : Colors.black,
                     ),
                   ),
                 ),
