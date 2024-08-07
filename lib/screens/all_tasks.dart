@@ -20,7 +20,8 @@ class _TasksPageState extends State<TasksPage> {
           return TaskItem(
             title: _tasks[index],
             description: _tasks[index],
-            deadline: DateTime.now(),
+            deadline: DateTime.now(), 
+            urgency: TaskUrgency.urgent,
           );
         },
       );
