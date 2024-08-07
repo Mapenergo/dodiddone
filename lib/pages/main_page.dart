@@ -1,3 +1,5 @@
+import 'package:dodiddone/screens/all_tasks.dart';
+import '../screens/all_tasks.dart'; // Import TasksPage
 import '../screens/profile.dart'; // Import ProfilePage
 import '../theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +16,10 @@ class _MainPageState extends State<MainPage> {
 
   // Use a list of widgets directly
   static const List<Widget> _widgetOptions = <Widget>[
-    Text('Tasks'), // Replace with actual route for Tasks screen
+    TasksPage(), // Route for TasksPage screen
     Text('Today'), // Replace with actual route for Today screen
-    ProfilePage(), // Route for ProfilePage
     Text('Done'), // Replace with actual route for Done screen
+    ProfilePage(), // Route for ProfilePage screen
   ];
 
   void _onItemTapped(int index) {
@@ -63,12 +65,12 @@ class _MainPageState extends State<MainPage> {
             label: 'Today',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.check_circle),
             label: 'Done',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
         currentIndex: _selectedIndex,

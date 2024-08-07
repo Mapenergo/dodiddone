@@ -93,32 +93,34 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   
                 ),
-                const SizedBox(height: 20),
-                // Add the new TextFormField for repeating the password
-                TextFormField(
-                  controller: _repeatepassWordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    hintText: 'Repeat Password',
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      borderSide: BorderSide.none,
+                // Only show the repeat password field if _isLogin is false (registration)
+                if (!_isLogin)
+                  const SizedBox(height: 20),
+                if (!_isLogin)
+                  TextFormField(
+                    controller: _repeatepassWordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      hintText: 'Repeat Password',
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please repeat your password';
+                      }
+                      // Access the password field's value using the key
+                      
+                      if (_repeatepassWordController.text != _passWordController.text) {
+                        return 'Passwords do not match';
+                      }
+                      return null;
+                    },
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please repeat your password';
-                    }
-                    // Access the password field's value using the key
-                    
-                    if (_repeatepassWordController.text != _passWordController.text) {
-                      return 'Passwords do not match';
-                    }
-                    return null;
-                  },
-                ),
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: () {

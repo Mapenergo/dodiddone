@@ -4,11 +4,13 @@ import '../pages/login_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
+
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 class _ProfilePageState extends State<ProfilePage> {
   bool isEmailVerified = false; // Флаг для проверки подтверждения почты
+  
   @override
   Widget build(BuildContext context) {
     return Padding(
