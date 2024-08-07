@@ -1,4 +1,5 @@
-import 'package:dodiddone/theme/theme.dart';
+import '../screens/profile.dart'; // Import ProfilePage
+import '../theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -10,16 +11,17 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  bool _isLogin = true; // Add this line
 
+  // Use a list of widgets directly
   static const List<Widget> _widgetOptions = <Widget>[
-    Text('Tasks'),
-    Text('Today'),
-    Text('Profile'),
-    Text('Done'),
+    Text('Tasks'), // Replace with actual route for Tasks screen
+    Text('Today'), // Replace with actual route for Today screen
+    ProfilePage(), // Route for ProfilePage
+    Text('Done'), // Replace with actual route for Done screen
   ];
 
   void _onItemTapped(int index) {
+    // Navigate to the corresponding widget
     setState(() {
       _selectedIndex = index;
     });
@@ -36,17 +38,16 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Container( // Wrap the body with Container
+      body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomCenter,
-            colors: _isLogin
-                ? [secondaryColor, primaryColor]
-                : [primaryColor, secondaryColor],
-            stops: const [0.1, 0.9], // Primary color takes up 90%
+            colors: [secondaryColor, primaryColor],
+            stops: const [0.1, 0.9],
           ),
         ),
+        // Use a placeholder widget for now
         child: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
@@ -72,8 +73,8 @@ class _MainPageState extends State<MainPage> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        selectedItemColor: primaryColor,
-        unselectedItemColor: Colors.grey,
+        selectedItemColor: secondaryColor,
+        unselectedItemColor: primaryColor,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
       ),
